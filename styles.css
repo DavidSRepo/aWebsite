@@ -1,0 +1,120 @@
+
+
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(95px, 1fr));
+    grid-template-rows: auto;
+    //gap: 0px;
+}
+    
+.div1 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 8;
+    grid-row-start: 1;
+    place-items: center;
+    place-self: center;
+}
+
+.div2 {
+    grid-column: span 4 / span 4;
+    grid-column-start: 3;
+    grid-row-start: 7;
+    place-items: center;
+    place-self: center;
+}
+
+.div3 {
+    grid-column: span 2 / span 2;
+    grid-column-start: 4;
+    grid-row-start: 8;
+    place-items: center;
+    place-self: center;
+}
+
+.div4 {
+    grid-column: span 4 / span 4;
+    grid-row: span 6 / span 6;
+    grid-column-start: 3;
+    grid-row-start: 1;
+    place-items: center;
+    place-self: center;
+}
+
+.div5 {
+    grid-row: span 2 / span 2;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    place-items: center;
+    place-self: center;
+}
+
+.div6 {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    place-items: center;
+    place-self: center;
+}
+
+#clock{
+    font-size: 90px;
+}
+
+#headLine{
+    font-size: 25px;
+}
+
+
+
+.header{
+    font-size: 45px;
+}
+
+.placeholder {
+  visibility: hidden;
+}
+
+
+canvas{
+    outline: 2px solid black;
+}
+
+
+
+
+
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 15px 12px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-instagram {
+  background: #f56040;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-github {
+    background: black;
+    color: white
+}
+
+.social-icons{
+margin-top: 10px;
+display: flex;
+gap: 15px;
+justify-content: center;
+}

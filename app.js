@@ -1,16 +1,7 @@
-const bounce = document.createElement("div")
-bounce.style.position = "absolute"
-bounce.style.width = "100px"
-bounce.style.height = "100px"
-bounce.style.zIndex = -1;
-document.body.appendChild(bounce)
-let gameVisible = false;
-let style = 'norm';
+  window.addEventListener('load', function(){
 
-bounce.style.backgroundColor = "black"
 
-const colors =  ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
-const colorsB =["#f94144", "#f'ArrowLeft'22c", "#f8961e","#f9c74f", "#90be6d", "#43aa8b", "#577590"]
+
 const motifs = [
     "It's a marathon, not a sprint.",
     "We are not individuals experiencing the universe, but the universe experiencing individuality .",
@@ -31,7 +22,8 @@ const motifs = [
     "Don't Over Think ----.",
     "Sometimes worse is better.",
     "Most people don't even like themselves, don't worry about if they like you or not.",
-    "Being bad at something is the first step at being good at something."
+    "Being bad at something is the first step at being good at something.",
+    "I talk to myself because I like talking to intellegent people."
 ]
 
 const dracula = [
@@ -39,19 +31,9 @@ const dracula = [
     "The bugs are back." 
 ]
 
+let score = 0;
+const scoreElement = this.document.getElementById('score');
 
-
-
-bounceCount = null
-bounceGoal = 10
-count = 0
-colorIndex = 0
-colorIndexB = 0
-x=50
-y=50
-xvel=1
-yvel=1
-currentTimer = null;
 
 function headLiner(){
    const headLineElement =  document.getElementById('headLine')
@@ -70,7 +52,7 @@ function showTime(){
     let min = time.getMinutes();
     let sec = time.getSeconds();
     am_pm = "AM";
-
+ 
 
     if(hour >= 12){
         if(hour > 12) hour -=12;
@@ -99,143 +81,6 @@ function showTime(){
 }
 
 
-function startBounce(style){
-    if(currentTimer){
-       clearInterval(currentTimer)
-       currentTimer = null;
-    }
-    currentTimer = setInterval(()=>{
-        if(style === 'norm'){
-            normBounceLogic();
-        }
-        else if (style === 'reverse'){
-            reverseBounceLogic();
-        }
-    }, 1500/60)
-
-}
-
-
-
-function normBounceLogic(){
-    bounceOccured = false
-
-    x+=xvel*5
-    y+=yvel*5
-
-    if(x<0){
-        x = 0
-        xvel = 1
-        bounce.style.backgroundColor = colors[colorIndex]
-        colorIndex = (colorIndex + 1) % colors.length
-        bounceOccured = true
-        
-    }
-    else if(x>window.innerWidth - bounce.offsetWidth) {
-        x = window.innerWidth - bounce.offsetWidth
-        xvel = -1
-        bounce.style.backgroundColor = colors[colorIndex]
-        colorIndex = (colorIndex + 1) % colors.length
-        bounceOccured = true
-        
-        }
-    if(y<0){
-        y = 0
-        yvel = 1
-        bounce.style.backgroundColor = colors[colorIndex]
-        colorIndex = (colorIndex + 1) % colors.length
-        bounceOccured = true
-        
-    }
-    else if(y>window.innerHeight - bounce.offsetHeight) {
-        y = window.innerHeight - bounce.offsetHeight
-        yvel = -1
-        bounce.style.backgroundColor = colors[colorIndex]
-        colorIndex = (colorIndex + 1) % colors.length
-        bounceOccured = true
-        
-    }
-
-    if(bounceOccured){
-        bounceCount = bounceCount + 1
-        if (bounceCount >= bounceGoal){
-            bounceCount = 0
-            if(window.location.pathname === "/index.html"){
-              count = (count + 1) % motifs.length
-              headLiner()
-            }
-        }
-    }
-
-    
-    bounce.style.left = x+"px"
-    bounce.style.top = y+"px"
-
-}
-    
-function reverseBounceLogic(){
-    bounceOccured = false
-
-    x+=xvel*5
-    y+=yvel*5
-    
-    if(x<0){
-    xvel = 1
-    document.body.style.background = colorsB[colorIndexB]
-    colorIndexB = (colorIndexB + 1) % colorsB.length
-    bounceOccured = true
-    }
-    else if(x>window.innerWidth - bounce.offsetWidth) {
-    x = window.innerWidth - bounce.offsetWidth
-    xvel = -1
-    document.body.style.background = colorsB[colorIndexB]
-    colorIndexB = (colorIndexB + 1) % colorsB.length
-    bounceOccured = true
-    }
-    if(y<0){
-    yvel = 1
-    document.body.style.background = colorsB[colorIndexB]
-    colorIndexB = (colorIndexB + 1) % colorsB.length
-    bounceOccured = true
-    }
-    else if(y>window.innerHeight - bounce.offsetHeight) {
-    y = window.innerHeight - bounce.offsetHeight
-    yvel = -1
-    document.body.style.background = colorsB[colorIndexB]
-    colorIndexB = (colorIndexB + 1) % colorsB.length
-    bounceOccured = true
-    }
-
-    if(bounceOccured){
-      bounceCount = bounceCount + 1
-      if (bounceCount >= bounceGoal){
-          bounceCount = 0
-          if(window.location.pathname === "/index.html"){
-            count = (count + 1) % motifs.length
-            headLiner()
-          }
-      }
-  }
-
-
-    bounce.style.left = x+"px"    
-    bounce.style.top = y+"px" 
-    
-
-}   
-
-
-function normBounce(){
-    bounce.style.backgroundColor = "black"
-    document.body.style.backgroundColor = "pink"
-    startBounce('norm')
-}
-
-function reverseBounce(){
-    document.body.style.backgroundColor = "black"
-    bounce.style.backgroundColor = "white"
-    startBounce('reverse')
-}
 
 function tetris(){
     // https://tetris.fandom.com/wiki/Tetris_Guideline
@@ -332,8 +177,10 @@ function getRandomInt(min, max) {
     }
   
     // check for line clears starting from the bottom and working our way up
+    let linesCleared = 0;
     for (let row = playfield.length - 1; row >= 0; ) {
       if (playfield[row].every(cell => !!cell)) {
+        linesCleared++;
   
         // drop every row above this one
         for (let r = row; r >= 0; r--) {
@@ -346,8 +193,14 @@ function getRandomInt(min, max) {
         row--;
       }
     }
+
+    if (linesCleared > 0){
+      score+= linesCleared * 100;
+      scoreElement.innerHTML = "Score: " + score;
+    }
   
-    tetromino = getNextTetromino();
+    tetromino = nextTetromino;
+    nextTetromino = getNextTetromino();
   }
   
   // show the game over screen
@@ -365,10 +218,13 @@ function getRandomInt(min, max) {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+    score = 0; 
   }
   
   const canvas = document.getElementById('game');
   const context = canvas.getContext('2d');
+  const nextCanvas = document.getElementById('next');
+  const nextCtx = nextCanvas.getContext('2d');
   const grid = 32;
   const tetrominoSequence = [];
   
@@ -437,7 +293,10 @@ function getRandomInt(min, max) {
   };
   
   let count = 0;
-  let tetromino = getNextTetromino();
+  let tetromino = null;
+  let nextTetromino = getNextTetromino();
+  tetromino = getNextTetromino();
+
   let rAF = null;  // keep track of the animation frame so we can cancel it
   let gameOver = false;
   
@@ -486,6 +345,33 @@ function getRandomInt(min, max) {
         }
       }
     }
+
+    function drawNextTetromino(){
+      nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+
+      const matrix = nextTetromino.matrix;
+      const color = colors[nextTetromino.name];
+
+      nextCtx.fillStyle = color; 
+
+      const offsetX = Math.floor((nextCanvas.width / grid - matrix[0].length) / 2);
+      const offsetY = Math.floor((nextCanvas.height / grid - matrix.length) / 2);
+
+      for (let row = 0; row < matrix.length; row++){
+        for (let col = 0; col < matrix[row].length; col++){
+          if(matrix[row][col]){
+            nextCtx.fillRect(
+              (offsetX + col) * grid,
+              (offsetY + row) * grid,
+              grid - 1,
+              grid - 1
+            );
+          }
+        }
+      }
+    }
+
+    drawNextTetromino();
   }
 
   // stops the page scroll problem 
@@ -525,7 +411,7 @@ function getRandomInt(min, max) {
       if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
         tetromino.row = row - 1;
   
-        placeTetromino();
+        placeTetromino(); 
         return;
       }
   
@@ -538,17 +424,20 @@ function getRandomInt(min, max) {
 }
 
 function hideStuff(){
-  var i = document.getElementById("clock");
-  var ii = document.getElementById("headLine");
-  var iii = document.getElementById("game")
-  if(gameVisible){
-    i.style.display = "flex";
-    ii.style.display = "flex";
+  var i = document.getElementById('storeFront')
+  var ii = document.getElementById('gameBoard')
+  var iii = document.getElementById('nextPiece')
+  var iv = document.getElementById('scoreBoard')
+  if(!gameVisible){
+    i.style.display = "grid";
+    ii.style.display = "none";
     iii.style.display = "none";
+    iv.style.display = "none";
   } else {
     i.style.display = "none";
-    ii.style.display = "none";
-    iii.style.display = "flex";
+    ii.style.display = "grid";
+    iii.style.display = "grid";
+    iv.style.display = "grid";
 
     tetris();
   }
@@ -556,27 +445,14 @@ function hideStuff(){
   gameVisible = !gameVisible;
 }
 
-function toggleSidebar(){
-  const sidebar = document.querySelector('.sidebar');
-  sidebar.classList.toggle('collapsed');
-}
 
-document.getElementById("switchButton").onclick = function(){
-  if(style === 'norm'){
-    startBounce('reverse')
-    style = 'reverse'
-  }
-  else{
-    startBounce('norm')
-    style = 'norm'
-  }
-}
+
 
 document.getElementById("startTeterisButton").onclick = hideStuff;
+//headLiner();
+showTime();
+hideStuff();
 
-window.onload = function(){
-  document.getElementById("game").style.display = "none";
-  headLiner();
-  normBounce();
-  showTime();
-}
+
+
+});
