@@ -21,23 +21,23 @@ const pool = new Pool({
 
 
 
-app.use(express.static(path.join(_dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get("/", (req,res) => {
-    res.sendFile(path.join(_dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 
 app.post("/submit", async (req, res) => {
     const { text } = req.body;
     if(!text){
-        return res.status(480).json({error: 'No text provided'});
+        return res.status(400).json({error: 'No text provided'});
     }
 
     try {
         await pool.query('INSERT INTO submissions (text_content) VALUES ($1)', [text]);
-        res.json({ succcess: true });
+        res.json({ success: true });
     }
 
     catch (err){
@@ -48,5 +48,5 @@ app.post("/submit", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log('Server running on port ${PORT}');
+    console.log(`Server running on port ${PORT}`);
 })
