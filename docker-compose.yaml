@@ -15,7 +15,9 @@ services:
     build: .
     container_name: aWebsite
     restart: unless-stopped
-    working_dir: /MEGA/Desktop/untitled/aWebsite/public
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
     ports:
       - "3000:3000"
     environment:
