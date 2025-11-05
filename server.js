@@ -56,7 +56,3 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
 
-if (data.success){
-    status.textContent = 'Thank You!';
-    document.getElementById('text').value = '';
-}

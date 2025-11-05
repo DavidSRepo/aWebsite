@@ -8,7 +8,7 @@ document.getElementById('submitbtn').addEventListener('click', async () =>{
 }
 
 try{
-    const res = await fetch('http://192.168.0.228:3000/submit',{
+    const res = await fetch('/submit',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body:JSON.stringify({ text })
@@ -16,7 +16,9 @@ try{
     
     const data = await res.json();
     if(data.success){
-        status.textContent = 'Submitted successfully!';
+        status.textContent = 'Thank You!';
+        document.getElementById('text').value = '';
+        
     }
     else{
         status.textContent = 'Error: ' + (data.error || 'Unknown error');
@@ -26,8 +28,4 @@ try{
         status.textContent = 'Request failed: ' + err.message
     }
 })
-
-
-
-
 
