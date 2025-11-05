@@ -37,6 +37,7 @@ app.post("/submit", async (req, res) => {
 
     try {
         await pool.query('INSERT INTO submissions (text_content) VALUES ($1)', [text]);
+        console.log("Inserted:", text);
         res.json({ success: true });
     }
 
