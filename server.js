@@ -19,6 +19,10 @@ const pool = new Pool({
     port: 5432,
 });
 
+pool.connect()
+.then(() => console.log("Connected to Postgres"))
+.catch(err => console.error("Database connection error:", err));
+
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,3 +55,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
+
+if (data.success){
+    status.textContent = 'Thank You!';
+    document.getElementById('text').value = '';
+}
