@@ -12,10 +12,10 @@ app.use(express.json());
 
 
 const pool = new Pool({
-    user: process.env.PGUSER,
+    user: process.env.POSTGRES_USER,
     host: process.env.PGHOST,
-    database: process.env.PGDATABASE,
-    password: process.env.PGPASSWORD,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
     port: 5432,
 });
 
