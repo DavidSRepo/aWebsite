@@ -202,9 +202,21 @@ function getRandomInt(min, max) {
     tetromino = nextTetromino;
     nextTetromino = getNextTetromino();
   }
+  async function loadHighScores() {
+  const res = await fetch("http://192.168.0.228:3000/scores");
+  const scores = await res.json(); 
+
+  const list = document.getElementById("highscores");
+  list.innerHTML = "";
+
+  scores.forEach(({ player_name, score }, i) =>{
+    const li = document.createElement("li");
+    li.textContent = `${i + 1}. ${player_name} - ${score}`;
+    list.appendChild(li);
+  }); 
   
   // show the game over screen
-  function showGameOver() {
+  async function showGameOver() {
     cancelAnimationFrame(rAF);
     gameOver = true;
   
@@ -238,6 +250,7 @@ function getRandomInt(min, max) {
       .catch(err => console.error("Request failed:", err));
     }
     score = 0; 
+    await loadHighScores();
   }
   
   const canvas = document.getElementById('game');
@@ -320,18 +333,6 @@ function getRandomInt(min, max) {
   let gameOver = false;
   
 
-async function loadHighScores() {
-  const res = await fetch("http://192.168.0.228:3000/scores");
-  const scores = await res.json(); 
-
-  const list = document.getElementById("highscores");
-  list.innerHTML = "";
-
-  scores.forEach(({ player_name, score }, i) =>{
-    const li = document.createElement("li");
-    li.textContent = `${i + 1}. ${player_name} - ${score}`;
-    list.appendChild(li);
-  });
   
 }
 
