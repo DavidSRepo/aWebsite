@@ -218,6 +218,25 @@ function getRandomInt(min, max) {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+
+    const player_name = prompt("Game Over! Enter your namr:");
+    if(player_name){
+      fetch("http://192.168.0.228:3000/score",{
+        method: "POST",
+        headers:{ "Content-Type": "application/json"},
+        body: JSON.stringify({ player_name, score }),
+      })
+      .then(res => res,json())
+      .then(data => {
+        if (data.success){
+          console.log("Score submitted!");
+        }
+        else{
+          console.error("Error submitting score:", data.error);
+        }
+      })
+      .catch(err => console.error("Request failed:", err));
+    }
     score = 0; 
   }
   
@@ -300,6 +319,23 @@ function getRandomInt(min, max) {
   let rAF = null;  // keep track of the animation frame so we can cancel it
   let gameOver = false;
   
+
+async function loadHighScores() {
+  const res = await fetch("http://192.168.0.228:3000/scores");
+  const scores = await res.json(); 
+
+  const list = document.getElementById("highscores");
+  list.innerHTML = "";
+
+  scores.forEach(({ player_name, score }, i) =>{
+    const li = document.createElement("li");
+    li.textContent = `${i + 1}. ${player_name} - ${score}`;
+    list.appendChild(li);
+  });
+  
+}
+
+
   // game loop
   function loop() {
     rAF = requestAnimationFrame(loop);
