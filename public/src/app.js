@@ -203,17 +203,18 @@ function getRandomInt(min, max) {
     nextTetromino = getNextTetromino();
   }
   async function loadHighScores() {
-  const res = await fetch("http://192.168.0.228:3000/scores");
-  const scores = await res.json(); 
+    const res = await fetch("http://192.168.0.228:300/scores");
+    const scores = await res.json();
 
-  const list = document.getElementById("highscores");
-  list.innerHTML = "";
+    const list = document.getElementById("highscores");
+    list.innerHTML = "";
 
-  scores.forEach(({ player_name, score }, i) =>{
-    const li = document.createElement("li");
-    li.textContent = `${i + 1}. ${player_name} - ${score}`;
-    list.appendChild(li);
-  }); 
+    scores.forEach(({ player_name, score }, i) =>{
+      const li = document.createElement("li");
+      li.textContent = `${i + 1}. ${player_name} - ${score}`;
+      list.appendChild(li);
+    })
+  }
   
   // show the game over screen
   async function showGameOver() {
@@ -334,7 +335,7 @@ function getRandomInt(min, max) {
   
 
   
-}
+
 
 
   // game loop
