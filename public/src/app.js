@@ -203,7 +203,7 @@ function getRandomInt(min, max) {
     nextTetromino = getNextTetromino();
   }
   async function loadHighScores() {
-    const res = await fetch("http://192.168.0.228:300/scores");
+    const res = await fetch("http://192.168.0.228:3000/scores");
     const scores = await res.json();
 
     const list = document.getElementById("highscores");
