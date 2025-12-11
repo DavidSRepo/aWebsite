@@ -76,12 +76,12 @@ app.post("/score", async(req, res)=>{
 app.get("/scores", async (req, res) =>{
     try{
         const result = await pool.query(
-            "SELECT player_name, score FROM scores ODER BY Score DESC, created_at ASC LIMIT 10"
+            "SELECT player_name, score FROM scores ORDER BY score DESC, created_at ASC LIMIT 10"
         );
         res.json(result.rows);
     }
     catch (err){
-        console.error ("Database error:, err");
+        console.error ("Database error:", err);
         res.status(500).json({ error: "Database error: " + err.message });
     }
 })

@@ -234,7 +234,7 @@ function getRandomInt(min, max) {
 
     const player_name = prompt("Game Over! Enter your namr:");
     if(player_name){
-      fetch("http://192.168.0.228:3000/score",{
+      fetch("http://192.168.0.228:3000/scores",{
         method: "POST",
         headers:{ "Content-Type": "application/json"},
         body: JSON.stringify({ player_name, score }),
