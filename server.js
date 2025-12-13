@@ -51,7 +51,7 @@ app.post("/submit", async (req, res) => {
     }
 });
 
-app.post("/score", async(req, res)=>{
+app.post("/scores", async(req, res)=>{
     const { player_name, score } = req.body;
 
     if(!player_name || typeof score !== "number"){
