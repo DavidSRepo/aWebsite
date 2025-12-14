@@ -203,7 +203,7 @@ function getRandomInt(min, max) {
     nextTetromino = getNextTetromino();
   }
   async function loadHighScores() {
-    const res = await fetch("http://192.168.0.228:3000/scores");
+    const res = await fetch("/scores");
     const scores = await res.json();
 
     const list = document.getElementById("highscores");
@@ -235,7 +235,7 @@ function getRandomInt(min, max) {
     const player_name = prompt("Game Over! Enter your name:");
     if(player_name){
       try{
-        const res = await fetch("http://192.168.0.228:3000/scores",{
+        const res = await fetch("/scores",{
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ player_name, score }),
