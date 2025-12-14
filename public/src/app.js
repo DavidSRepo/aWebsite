@@ -232,24 +232,25 @@ function getRandomInt(min, max) {
     context.textBaseline = 'middle';
     context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
 
-    const player_name = prompt("Game Over! Enter your namr:");
+    const player_name = prompt("Game Over! Enter your name:");
     if(player_name){
-      fetch("http://192.168.0.228:3000/scores",{
+      try{
+        const res = await fetch("http://192.168.0.228:3000/scores",{
         method: "POST",
-        headers:{ "Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ player_name, score }),
-      })
-      .then(res => res,json())
-      .then(data => {
-        if (data.success){
-          console.log("Score submitted!");
+        });
+
+       const data = await res.json();
+      
+        if (!data.success){
+         console.error("Error submitting score:", data.error);
         }
-        else{
-          console.error("Error submitting score:", data.error);
-        }
-      })
-      .catch(err => console.error("Request failed:", err));
+      } catch (err){
+       console.error("Request failed:", err);
+      }
     }
+      
     score = 0; 
     await loadHighScores();
   }
