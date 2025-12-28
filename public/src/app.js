@@ -232,7 +232,31 @@ function getRandomInt(min, max) {
     context.textBaseline = 'middle';
     context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
 
-    const player_name = prompt("Game Over! Enter your name:");
+    function showNameEntry(){
+      const overlay = document.getElementById("nameEntry");
+      const input = document.getElementById("playerNameInput");
+
+      overlay.classList.remove("hidden");
+      input.value = "";
+      input.focus();
+
+      input.oninput = () =>{
+        input.value = input.value
+          .toUpperCase()
+          .replace(/[^A-Z]/g, "")
+          .slice(0, 3);
+      };
+
+      input.onkeydown = async (e) => {
+        if (e.key === "Enter" && input.value.lenght > 0){
+          overlay.classList.add("hidden");
+          
+          await submitScore(input.value);
+          await loadHighScores();
+        }
+      };
+    }
+
     if(player_name){
       try{
         const res = await fetch("/scores",{
@@ -252,7 +276,7 @@ function getRandomInt(min, max) {
     }
       
     score = 0; 
-    await loadHighScores();
+    showNameEntry();
   }
   
   const canvas = document.getElementById('game');

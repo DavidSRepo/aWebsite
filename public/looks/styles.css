@@ -81,7 +81,36 @@ canvas{
 
 
 
+#nameEntry{
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
 
+#nameEntry.hidden{
+    display: none;
+}
+
+.nameBox{
+    color: white;
+    font-family: monospace;
+    text-align: center;
+}
+
+.nameBox input{
+    width: 120px;
+    font-size: 48px;
+    text-align: center;
+    text-transform: uppercase;
+    background: black;
+    border: 2px solid white;
+    color: inherit;
+    outline: none;
+}
 
 
 .fa {
