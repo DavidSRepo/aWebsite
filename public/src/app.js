@@ -248,7 +248,8 @@ function getRandomInt(min, max) {
       };
 
       input.onkeydown = async (e) => {
-        if (e.key === "Enter" && input.value.lenght > 0){
+        if (e.key === "Enter" && input.value.length > 0){
+          e.preventDefault();
           overlay.classList.add("hidden");
           
           await submitScore(input.value);
