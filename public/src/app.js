@@ -262,7 +262,7 @@ function getRandomInt(min, max) {
       };
     }
 
-    async function submitScore(player_name, score){
+    async function submitScore(player_name, finalScore){
       try{
         const res = await fetch("/scores",{
         method: "POST",
