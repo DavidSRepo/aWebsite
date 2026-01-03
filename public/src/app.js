@@ -23,7 +23,8 @@ const motifs = [
     "Sometimes worse is better.",
     "Most people don't even like themselves, don't worry about if they like you or not.",
     "Being bad at something is the first step at being good at something.",
-    "I talk to myself because I like talking to intellegent people."
+    "I talk to myself because I like talking to intellegent people.",
+    "I'm gon make my name last, put that on my last name."
 ]
 
 const dracula = [
@@ -261,7 +262,7 @@ function getRandomInt(min, max) {
       };
     }
 
-    async function submitScore(player_name, finalScore){
+    async function submitScore(player_name, score){
       try{
         const res = await fetch("/scores",{
         method: "POST",
