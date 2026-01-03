@@ -32,6 +32,7 @@ const dracula = [
 ]
 
 let score = 0;
+const finalScore = score;
 const scoreElement = this.document.getElementById('score');
 
 
@@ -232,7 +233,7 @@ function getRandomInt(min, max) {
     context.textBaseline = 'middle';
     context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
 
-    function showNameEntry(){
+    function showNameEntry(finalScore){
       const overlay = document.getElementById("nameEntry");
       const input = document.getElementById("playerNameInput");
 
@@ -252,18 +253,20 @@ function getRandomInt(min, max) {
           e.preventDefault();
           overlay.classList.add("hidden");
           
-          await submitScore(input.value);
+          await submitScore(input.value, finalScore);
           await loadHighScores();
+
+          score = 0;
         }
       };
     }
 
-    async function submitScore(player_name){
+    async function submitScore(player_name, finalScore){
       try{
         const res = await fetch("/scores",{
         method: "POST",
         headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({ player_name, score }),
+        body: JSON.stringify({ player_name, score: finalScore }),
         });
 
        const data = await res.json();
@@ -276,8 +279,8 @@ function getRandomInt(min, max) {
       }
     }
       
-    score = 0; 
-    showNameEntry();
+ 
+    showNameEntry(finalScore);
   }
   
   const canvas = document.getElementById('game');
